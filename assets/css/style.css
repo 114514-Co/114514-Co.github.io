@@ -41,7 +41,6 @@ nav {
 }
 
 .nav-right { display: flex; align-items: center; gap: 20px; }
-
 .nav-links { display: flex; align-items: center; }
 
 .nav-links a {
@@ -90,18 +89,42 @@ main, .container { padding-top: 70px; }
 
 .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
 
-/* --- SNS Section --- */
-.footer-sns { margin-bottom: 30px; display: flex; justify-content: center; gap: 25px; align-items: center; }
-
-.footer-sns a {
-    width: 24px; height: 24px; color: var(--secondary-accent);
-    display: flex; align-items: center; justify-content: center;
-    transition: 0.3s; opacity: 0.6; text-decoration: none;
+/* --- SNS Section (REINFORCED SIZE FIX) --- */
+.footer-sns { 
+    margin: 40px 0 30px; 
+    display: flex; 
+    justify-content: center; 
+    gap: 30px; 
+    align-items: center; 
 }
 
-.footer-sns a svg { width: 24px !important; height: 24px !important; fill: currentColor; display: block; }
+.footer-sns a {
+    width: 24px !important; 
+    height: 24px !important; 
+    color: var(--secondary-accent);
+    display: flex; 
+    align-items: center; 
+    justify-content: center;
+    transition: 0.3s; 
+    opacity: 0.6; 
+    text-decoration: none;
+    flex-shrink: 0; /* サイズ維持の要 */
+}
 
-.footer-sns a:hover { color: var(--primary-accent); opacity: 1; transform: translateY(-3px); }
+.footer-sns a svg { 
+    width: 24px !important; 
+    height: 24px !important; 
+    max-width: 24px; 
+    max-height: 24px; 
+    fill: currentColor; 
+    display: block; 
+}
+
+.footer-sns a:hover { 
+    color: var(--primary-accent); 
+    opacity: 1; 
+    transform: translateY(-3px); 
+}
 
 /* --- Back to Top (Unified) --- */
 #back-to-top {

@@ -4,17 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
   console.log("SYSTEM ONLINE: 114514-CO UNIFIED ARCHITECTURE CONNECTED...");
 
   // 1. 共通パーツの読み込みと初期化
-  // ヘッダー読み込み後に検索とモバイルメニューを紐付け
   loadComponent("common-header", "assets/inc/header.inc", () => {
     initMobileMenu();
     initSearch();
   });
 
-  // フッター読み込み後に戻るボタン、Cookieバナー、隠しリンクを紐付け
   loadComponent("common-footer", "assets/inc/footer.inc", () => {
     initBackToTop();
     initCookieBanner();
-    initSecretLink(); // 隠しリンクの動作確認用
+    initSecretLink();
   });
 
   // 2. 即時実行可能なエフェクト
@@ -53,15 +51,13 @@ function initMobileMenu() {
     menuToggle.addEventListener("click", () => {
       menuToggle.classList.toggle("is-active");
       navList.classList.toggle("active");
-      document.body.style.overflow = navList.classList.contains("active")
-        ? "hidden"
-        : "";
+      document.body.style.overflow = navList.classList.contains("active") ? "hidden" : "";
     });
   }
 }
 
 /**
- * 検索窓の制御 (エンターキー対応・バグ修正版)
+ * 検索窓の制御 (自サイト内検索ページ遷移版)
  */
 function initSearch() {
   const trigger = document.getElementById("search-trigger");
@@ -70,6 +66,7 @@ function initSearch() {
 
   if (!trigger || !container || !input) return;
 
+  // アイコンクリックで開閉
   trigger.addEventListener("click", (e) => {
     e.stopPropagation();
     container.classList.toggle("active");
@@ -78,20 +75,21 @@ function initSearch() {
     }
   });
 
+  // エンターキーで自サイト内の search.html へ遷移
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       const query = input.value.trim();
       if (query) {
-        // 検索実行（yourdomain.com は実際のドメインに書き換えてください）
-        const searchUrl = `https://www.google.com/search?q=site:yourdomain.com ${encodeURIComponent(query)}`;
-        window.open(searchUrl, "_blank");
-
+        // 自サイトの検索結果ページにパラメータを付けて遷移
+        window.location.href = `search.html?q=${encodeURIComponent(query)}`;
+        
         container.classList.remove("active");
         input.value = "";
       }
     }
   });
 
+  // 窓の外をクリックで閉じる
   document.addEventListener("click", (e) => {
     if (!container.contains(e.target) && !trigger.contains(e.target)) {
       container.classList.remove("active");
@@ -121,9 +119,7 @@ function initCookieBanner() {
     acceptBtn.addEventListener("click", () => {
       banner.classList.remove("show");
       localStorage.setItem("cookieAccepted", "true");
-      setTimeout(() => {
-        banner.style.display = "none";
-      }, 800);
+      setTimeout(() => { banner.style.display = "none"; }, 800);
     });
   }
 }
@@ -136,7 +132,6 @@ function initBackToTop() {
   if (!backToTop) return;
 
   window.addEventListener("scroll", () => {
-    // 100px以上スクロールで表示
     if (window.scrollY > 100) {
       backToTop.classList.add("show");
     } else {
@@ -151,7 +146,7 @@ function initBackToTop() {
 }
 
 /**
- * 隠しリンク（ピリオド）の動作確認用
+ * 隠しリンク（ピリオド）の動作確認
  */
 function initSecretLink() {
   const secretTrigger = document.querySelector(".secret-trigger");
@@ -181,16 +176,13 @@ function initAmbientLight() {
  * スクロール連動アニメーション
  */
 function initScrollReveal() {
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("active");
-        }
-      });
-    },
-    { threshold: 0.1 },
-  );
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+      }
+    });
+  }, { threshold: 0.1 });
 
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 }
@@ -199,18 +191,7 @@ function initScrollReveal() {
  * 隠しコマンド（コナミコマンド）
  */
 function initKonamiCommand() {
-  const secretCode = [
-    "ArrowUp",
-    "ArrowUp",
-    "ArrowDown",
-    "ArrowDown",
-    "ArrowLeft",
-    "ArrowRight",
-    "ArrowLeft",
-    "ArrowRight",
-    "b",
-    "a",
-  ];
+  const secretCode = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
   let inputCode = [];
 
   window.addEventListener("keydown", (e) => {
@@ -219,9 +200,7 @@ function initKonamiCommand() {
     if (JSON.stringify(inputCode) === JSON.stringify(secretCode)) {
       document.body.style.transition = "opacity 2s ease";
       document.body.style.opacity = "0";
-      setTimeout(() => {
-        window.location.href = "secret.html";
-      }, 2000);
+      setTimeout(() => { window.location.href = "secret.html"; }, 2000);
     }
   });
 }
