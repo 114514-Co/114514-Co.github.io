@@ -7,6 +7,63 @@
     <meta name="description" content="114514 & Co. 公式サイト。「王道を往く」をコンセプトに、妥協のない最高品質のゲームをドバドバ展開中。最新作の情報を今すぐチェック。入って、どうぞ。">
     <title>114514 & Co. Official | 王道を往く、次世代のゲーム開発</title>
     <style>
+        /* Cookieポップアップ：公式の圧 */
+#cookie-banner {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(20, 20, 20, 0.95);
+    color: #fff;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    z-index: 2000;
+    border-top: 2px solid #ffcc00;
+    backdrop-filter: blur(10px);
+}
+#cookie-banner p { margin: 0; font-size: 0.85rem; }
+.cookie-btn {
+    background: #ffcc00;
+    color: #000;
+    border: none;
+    padding: 8px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/* 右下に戻るボタン：王道を往く操作性 */
+#back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: #ffcc00;
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    z-index: 1500;
+    transition: transform 0.3s, opacity 0.3s;
+    opacity: 0; /* 最初は隠しておくゾ */
+    pointer-events: none;
+}
+#back-to-top.show {
+    opacity: 1;
+    pointer-events: auto;
+}
+#back-to-top:hover {
+    transform: scale(1.1);
+}
         /* ナビゲーションバー：王道を往く固定デザイン */
 nav {
     width: 100%;
@@ -228,6 +285,29 @@ header {
         &copy; 2026 114514 & Co. All Rights Reserved.<br>
         Produced by Inm-Dev-Team
     </footer>
+<div id="cookie-banner">
+    <p>当サイトでは「いいよ、こいよ」という気持ちでCookieを使用して品質を向上させています。同意して、どうぞ。</p>
+    <button class="cookie-btn" onclick="acceptCookie()">承諾</button>
+</div>
 
+<a href="#" id="back-to-top">↑</a>
+
+<script>
+    // Cookie承諾の処理
+    function acceptCookie() {
+        document.getElementById('cookie-banner').style.display = 'none';
+        // ここにクッキー保存処理を書くことも可能ですが、とりあえず消すだけで「それっぽさ」は出ます。
+    }
+
+    // スクロールで「戻るボタン」を表示させる
+    const backToTop = document.getElementById('back-to-top');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTop.classList.add('show');
+        } else {
+            backToTop.classList.remove('show');
+        }
+    });
+</script>
 </body>
 </html>
