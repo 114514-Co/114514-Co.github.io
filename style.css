@@ -288,3 +288,50 @@ body.shaking {
     .menu-toggle.is-active .bar:nth-child(1) { transform: translateY(9px) rotate(45deg); }
     .menu-toggle.is-active .bar:nth-child(3) { transform: translateY(-9px) rotate(-45deg); }
 }
+
+.search-container {
+    position: relative;
+    margin-left: 20px;
+}
+
+#search-input {
+    background: #000;
+    border: 1px solid var(--neon-primary);
+    color: var(--neon-primary);
+    padding: 5px 10px;
+    font-family: 'Courier New', monospace;
+    outline: none;
+    transition: 0.3s;
+    width: 150px;
+}
+
+#search-input:focus {
+    width: 250px; /* フォーカスするとヌッ！と伸びる */
+    box-shadow: 0 0 15px var(--neon-primary);
+}
+
+/* 検索結果のドロップダウン */
+#search-results {
+    position: absolute;
+    top: 40px;
+    left: 0;
+    width: 100%;
+    background: rgba(10, 10, 10, 0.95);
+    border: 1px solid var(--neon-secondary);
+    display: none; /* 通常は隠す */
+    z-index: 2000;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.search-item {
+    padding: 10px;
+    border-bottom: 1px solid #333;
+    color: #fff;
+    cursor: pointer;
+}
+
+.search-item:hover {
+    background: var(--neon-secondary);
+    color: #000;
+}
