@@ -100,5 +100,33 @@
         }
     });
 </script>
+    <div id="bgm-control" onclick="toggleBGM()">🔊 SYSTEM SOUND: OFF</div>
+<audio id="myBGM" loop>
+    <source src="bgm.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+    const bgm = document.getElementById('myBGM');
+    const btn = document.getElementById('bgm-control');
+    let isPlaying = false;
+
+    function toggleBGM() {
+        if (isPlaying) {
+            bgm.pause();
+            btn.innerText = '🔊 SYSTEM SOUND: OFF';
+            document.body.classList.remove('shaking'); // 止めると揺れも止まる
+        } else {
+            bgm.play();
+            btn.innerText = '🔊 SYSTEM SOUND: ON (HYPER)';
+            document.body.classList.add('shaking'); // 音が出ると画面も震える（エグい）
+            isPlaying = true;
+        }
+    }
+
+    // ページをクリックした時に「警告音」っぽいのを出すならここ
+    window.addEventListener('click', () => {
+        console.log("114514 ACCESS DETECTED...");
+    });
+</script>
 </body>
 </html>
