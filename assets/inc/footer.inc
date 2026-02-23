@@ -17,7 +17,6 @@
     <div class="system-sound-control">
         <span class="sound-label">SYSTEM SOUND:</span>
         <span id="sound-status" class="sound-status">ENABLED</span>
-        <a href="secret.html" class="secret-trigger">.</a>
     </div>
 
     <div class="footer-links">

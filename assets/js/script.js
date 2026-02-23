@@ -12,7 +12,6 @@ document.addEventListener("DOMContentLoaded", () => {
   loadComponent("common-footer", "assets/inc/footer.inc", () => {
     initBackToTop();
     initCookieBanner();
-    initSecretLink();
     initSoundToggle(); // システムサウンドの切り替え機能を追加
   });
 
