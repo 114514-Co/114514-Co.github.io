@@ -109,3 +109,56 @@ function initKonamiCommand() {
 
 // 以前の BGM / Overdrive モードは、ブランドの品格を保つため
 // 必要に応じてボタンが配置されたページのみで動作するように調整可能です。
+
+// script.js の initMobileMenu 関数内、または末尾に追記
+function initSearch() {
+    const trigger = document.getElementById('search-trigger');
+    const container = document.getElementById('search-container');
+    const input = document.getElementById('search-input');
+
+    if (trigger && container) {
+        trigger.addEventListener('click', () => {
+            container.classList.toggle('active');
+            if (container.classList.contains('active')) {
+                input.focus();
+            }
+        });
+
+        // 検索窓以外をクリックしたら閉じる
+        document.addEventListener('click', (e) => {
+            if (!container.contains(e.target)) {
+                container.classList.remove('active');
+            }
+        });
+    }
+}
+
+// DOMContentLoaded 内で呼び出すのを忘れずに！
+// loadComponent の後などで initSearch(); を実行
+
+// script.js の DOMContentLoaded 内、または末尾に追記
+
+function initCookieBanner() {
+    const banner = document.getElementById('cookie-banner');
+    // すでに同意済み（Local Storageにデータがある）かチェック
+    const isAccepted = localStorage.getItem('cookieAccepted');
+
+    if (!isAccepted && banner) {
+        // 少し遅れて表示させて「高級感」を出す
+        setTimeout(() => {
+            banner.classList.add('show');
+        }, 2000);
+    }
+}
+
+function acceptCookie() {
+    const banner = document.getElementById('cookie-banner');
+    if (banner) {
+        banner.classList.remove('show');
+        // 同意したことをブラウザに保存
+        localStorage.setItem('cookieAccepted', 'true');
+    }
+}
+
+// 読み込み実行（loadComponentの完了を待たずに実行可能）
+window.addEventListener('load', initCookieBanner);

@@ -240,3 +240,118 @@ footer {
     border-top: 1px solid var(--border-color);
     margin-top: 100px;
 }
+
+/* ナビ右側の要素を横並びに */
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+/* 検索コンテナ */
+.search-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+    border-bottom: 1px solid transparent;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-container.active {
+    border-bottom: 1px solid var(--primary-accent);
+}
+
+#search-input {
+    width: 0;
+    opacity: 0;
+    background: transparent;
+    border: none;
+    color: var(--primary-accent);
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    outline: none;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.search-container.active #search-input {
+    width: 150px;
+    opacity: 1;
+    padding: 5px 10px;
+}
+
+.search-icon {
+    cursor: pointer;
+    font-size: 0.9rem;
+    opacity: 0.6;
+    transition: 0.3s;
+}
+
+.search-icon:hover {
+    opacity: 1;
+}
+
+/* モバイルメニューボタンの微調整 */
+.menu-toggle {
+    z-index: 1001; /* 検索窓より手前に */
+}
+
+/* Cookie Banner */
+.cookie-wrapper {
+    position: fixed;
+    bottom: -100px; /* 初期状態は隠す */
+    left: 0;
+    width: 100%;
+    z-index: 9999;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: bottom 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.cookie-wrapper.show {
+    bottom: 0;
+}
+
+.cookie-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    background: rgba(10, 10, 10, 0.8);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border-color);
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.cookie-content p {
+    font-size: 0.65rem;
+    color: var(--secondary-accent);
+    letter-spacing: 0.1em;
+    margin: 0;
+    line-height: 1.5;
+}
+
+.cookie-btn {
+    background: var(--primary-accent);
+    color: #000;
+    border: none;
+    padding: 10px 25px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.3s;
+    letter-spacing: 0.1em;
+}
+
+.cookie-btn:hover {
+    background: #ccc;
+}
+
+@media (max-width: 768px) {
+    .cookie-content {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+}
