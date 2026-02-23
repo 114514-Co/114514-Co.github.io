@@ -1,5 +1,5 @@
 # ⚡ 114514 & Co. Official System Mainframe
-
+https://github.com/114514-co/official-site/actions/workflows/deploy.yml/badge.svg
 <p align="center">
   <img src="https://capsule-render.vercel.app/render?type=code&color=00ff00&height=200&section=header&text=114514%20&%20Co.&fontSize=90&animation=fadeIn&fontAlignY=35" alt="Header" />
 </p>
