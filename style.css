@@ -1,109 +1,120 @@
-/* --- 114514 & Co. 共通スタイルシート --- */
+/* --- 114514 & Co. 極限・サイバーパンク仕様 --- */
+
+:root {
+    --neon-green: #39ff14;
+    --neon-pink: #ff00ff;
+    --dark-bg: #050505;
+    --glass-bg: rgba(20, 20, 20, 0.8);
+}
 
 body {
     margin: 0;
     padding: 0;
-    background-color: #0d0d0d;
-    color: #e0e0e0;
-    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN", "Hiragino Sans", Meiryo, sans-serif;
-    line-height: 1.6;
+    background-color: var(--dark-bg);
+    /* 背景に走査線ノイズを追加 */
+    background-image: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
+    color: #fff;
+    font-family: 'Courier New', Courier, monospace; /* 機械的なフォントに */
+    overflow-x: hidden;
 }
 
-/* ナビゲーション */
+/* ナビゲーションをネオンに */
 nav {
     width: 100%;
     height: 60px;
-    background: rgba(0, 0, 0, 0.9);
+    background: var(--glass-bg);
     position: fixed;
     top: 0;
-    left: 0;
     z-index: 1000;
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 0 50px;
-    box-sizing: border-box;
-    border-bottom: 1px solid #333;
-    backdrop-filter: blur(5px);
+    border-bottom: 2px solid var(--neon-green);
+    box-shadow: 0 0 15px var(--neon-green);
 }
 
 .nav-logo {
-    color: #ffcc00;
-    font-weight: bold;
-    font-size: 1.2rem;
+    color: var(--neon-green);
+    font-size: 1.5rem;
+    text-shadow: 0 0 10px var(--neon-green);
+    font-style: italic;
     text-decoration: none;
-    letter-spacing: 2px;
-}
-
-.nav-links {
-    display: flex;
-    gap: 30px;
 }
 
 .nav-links a {
-    color: #e0e0e0;
-    text-decoration: none;
-    font-size: 0.9rem;
-    transition: color 0.3s;
-}
-
-.nav-links a:hover { color: #ffcc00; }
-
-/* 共通コンテナ */
-.container {
-    max-width: 900px;
-    margin: 0 auto;
-    padding: 80px 20px;
-}
-
-.section-title {
-    text-align: center;
-    font-size: 2.5rem;
-    border-bottom: 1px solid #333;
-    padding-bottom: 20px;
-    margin-bottom: 50px;
-    color: #ffcc00;
-}
-
-/* 会社・採用情報のテーブル */
-.info-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 30px;
-}
-.info-table th, .info-table td {
-    padding: 15px;
-    border-bottom: 1px solid #333;
-}
-.info-table th { color: #ffcc00; width: 30%; }
-
-/* お問い合わせ・採用BOX */
-.contact-section, .recruit-box {
-    background: #1a1a1a;
-    border: 1px solid #333;
-    padding: 40px;
-    text-align: center;
-    border-radius: 15px;
-    margin-top: 50px;
-}
-
-/* トップへ戻るボタン */
-#back-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    width: 50px;
-    height: 50px;
-    background: #ffcc00;
-    color: #000;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: #fff;
     text-decoration: none;
     font-weight: bold;
-    opacity: 0;
+    text-transform: uppercase;
     transition: 0.3s;
-    pointer-events: none;
 }
-#back-to-top.show { opacity: 1; pointer-events: auto; }
+
+.nav-links a:hover {
+    color: var(--neon-pink);
+    text-shadow: 0 0 10px var(--neon-pink);
+}
+
+/* タイトルの「圧」を強化 */
+.section-title {
+    text-align: center;
+    font-size: 3rem;
+    color: var(--neon-pink);
+    text-shadow: 5px 5px #000, 0 0 20px var(--neon-pink);
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    margin-bottom: 60px;
+    transform: skew(-10deg);
+}
+
+/* カードを「違法建築」っぽく */
+.contact-section, .recruit-box, .game-card {
+    background: #111;
+    border-left: 10px solid var(--neon-pink);
+    padding: 40px;
+    margin-bottom: 50px;
+    box-shadow: 10px 10px 0px var(--neon-green);
+    transition: 0.3s;
+}
+
+.contact-section:hover {
+    transform: translate(-5px, -5px);
+    box-shadow: 15px 15px 0px var(--neon-pink);
+}
+
+/* ボタンをさらにエグく */
+.btn, .contact-email {
+    display: inline-block;
+    background: transparent;
+    border: 2px solid var(--neon-green);
+    color: var(--neon-green);
+    padding: 15px 30px;
+    font-weight: bold;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    transition: 0.4s;
+    cursor: pointer;
+}
+
+.btn:hover {
+    background: var(--neon-green);
+    color: #000;
+    box-shadow: 0 0 30px var(--neon-green);
+}
+
+/* アニメーション：グリッチ効果 */
+@keyframes glitch {
+    0% { transform: translate(0); }
+    20% { transform: translate(-2px, 2px); }
+    40% { transform: translate(-2px, -2px); }
+    60% { transform: translate(2px, 2px); }
+    80% { transform: translate(2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+.nav-logo:hover {
+    animation: glitch 0.2s infinite;
+}
