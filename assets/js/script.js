@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initBackToTop();
     initCookieBanner();
     initSecretLink();
+    initSoundToggle(); // システムサウンドの切り替え機能を追加
   });
 
   // 2. 即時実行可能なエフェクト
@@ -22,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 /**
- * 共通パーツ読み込み関数 (Callback対応版)
+ * 共通パーツ読み込み関数
  */
 async function loadComponent(id, file, callback) {
   const element = document.getElementById(id);
@@ -66,7 +67,6 @@ function initSearch() {
 
   if (!trigger || !container || !input) return;
 
-  // アイコンクリックで開閉
   trigger.addEventListener("click", (e) => {
     e.stopPropagation();
     container.classList.toggle("active");
@@ -75,24 +75,42 @@ function initSearch() {
     }
   });
 
-  // エンターキーで自サイト内の search.html へ遷移
   input.addEventListener("keydown", (e) => {
     if (e.key === "Enter") {
       const query = input.value.trim();
       if (query) {
-        // 自サイトの検索結果ページにパラメータを付けて遷移
         window.location.href = `search.html?q=${encodeURIComponent(query)}`;
-        
         container.classList.remove("active");
         input.value = "";
       }
     }
   });
 
-  // 窓の外をクリックで閉じる
   document.addEventListener("click", (e) => {
     if (!container.contains(e.target) && !trigger.contains(e.target)) {
       container.classList.remove("active");
+    }
+  });
+}
+
+/**
+ * システムサウンドのステータス切替
+ */
+function initSoundToggle() {
+  const statusBtn = document.getElementById("sound-status");
+  if (!statusBtn) return;
+
+  statusBtn.addEventListener("click", () => {
+    const isEnabled = statusBtn.textContent === "ENABLED";
+    
+    if (isEnabled) {
+      statusBtn.textContent = "DISABLED";
+      statusBtn.classList.add("disabled"); // CSSで色を変えるためのクラス
+      console.log("SYSTEM SOUND: DEACTIVATED");
+    } else {
+      statusBtn.textContent = "ENABLED";
+      statusBtn.classList.remove("disabled");
+      console.log("SYSTEM SOUND: ACTIVATED");
     }
   });
 }
@@ -151,7 +169,8 @@ function initBackToTop() {
 function initSecretLink() {
   const secretTrigger = document.querySelector(".secret-trigger");
   if (secretTrigger) {
-    secretTrigger.addEventListener("click", () => {
+    secretTrigger.addEventListener("click", (e) => {
+      // aタグのデフォルト遷移を邪魔しない程度にログを出力
       console.log("SECRET ACCESS GRANTED. REDIRECTING...");
     });
   }

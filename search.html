@@ -1,155 +1,113 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results | 114514 & Co.</title>
-    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
     <style>
-      /* 検索結果ページ専用の追加スタイル */
-      .search-meta {
-        text-align: center;
-        margin-bottom: 60px;
-        color: var(--secondary-accent);
-        font-size: 0.9rem;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-      }
-
-      #query-keyword {
-        color: var(--primary-accent);
-        border-bottom: 1px solid var(--primary-accent);
-        padding-bottom: 2px;
-        margin: 0 5px;
-      }
-
-      .results-container {
-        max-width: 800px;
-        margin: 0 auto 100px;
-        min-height: 40vh;
-      }
-
-      .no-results {
-        text-align: center;
-        padding: 100px 0;
-        border: 1px dashed rgba(255, 255, 255, 0.1);
-        color: var(--secondary-accent);
-      }
-
-      .search-item {
-        padding: 30px 0;
-        border-bottom: 1px solid var(--border-color);
-        transition: 0.3s;
-        display: block;
-        text-decoration: none;
-        color: inherit;
-      }
-
-      .search-item:hover {
-        padding-left: 20px;
-        background: rgba(255, 255, 255, 0.02);
-      }
-
-      .search-item h3 {
-        margin: 0 0 10px 0;
-        font-size: 1.2rem;
-        font-weight: 600;
-      }
-
-      .search-item p {
-        margin: 0;
-        font-size: 0.85rem;
-        color: var(--secondary-accent);
-      }
+        /* 検索結果専用スタイル */
+        .search-meta {
+            text-align: center;
+            margin-bottom: 60px;
+            color: var(--secondary-accent);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+        }
+        #query-keyword {
+            color: var(--primary-accent);
+            border-bottom: 1px solid var(--primary-accent);
+            padding-bottom: 2px;
+            margin: 0 5px;
+        }
+        .results-container {
+            max-width: 800px;
+            margin: 0 auto 100px;
+            min-height: 40vh;
+        }
+        .no-results {
+            text-align: center;
+            padding: 100px 0;
+            border: 1px dashed rgba(255,255,255,0.1);
+            color: var(--secondary-accent);
+        }
+        .search-item {
+            padding: 30px 0;
+            border-bottom: 1px solid var(--border-color);
+            transition: 0.3s;
+            display: block;
+            text-decoration: none;
+            color: inherit;
+        }
+        .search-item:hover {
+            padding-left: 20px;
+            background: rgba(255,255,255,0.02);
+        }
     </style>
-  </head>
-  <body>
-    <div id="common-header"></div>
+</head>
+<body>
+
+    <nav id="common-header"></nav>
 
     <div id="ambient-light"></div>
 
     <main class="container">
-      <h1 class="section-title reveal">Search</h1>
+        <h1 class="section-title reveal">Search</h1>
+        
+        <div class="search-meta reveal">
+            Showing results for: <span id="query-keyword">---</span>
+        </div>
 
-      <div class="search-meta reveal">
-        Showing results for: <span id="query-keyword">---</span>
-      </div>
-
-      <div class="results-container reveal" id="results-list">
-        <div class="no-results">Searching our archives...</div>
-      </div>
+        <div class="results-container reveal" id="results-list">
+            <div class="no-results">Searching our archives...</div>
+        </div>
     </main>
 
-    <div id="common-footer"></div>
+    <footer id="common-footer"></footer>
 
     <script src="assets/js/script.js"></script>
     <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        // 1. URLパラメータから 'q' を取得
-        const params = new URLSearchParams(window.location.search);
-        const query = params.get("q");
-        const displaySpan = document.getElementById("query-keyword");
-        const resultsList = document.getElementById("results-list");
+        document.addEventListener("DOMContentLoaded", () => {
+            const params = new URLSearchParams(window.location.search);
+            const query = params.get('q');
+            const displaySpan = document.getElementById('query-keyword');
+            const resultsList = document.getElementById('results-list');
 
-        if (!query) {
-          displaySpan.textContent = "None";
-          resultsList.innerHTML =
-            '<div class="no-results">NO KEYWORD ENTERED.</div>';
-          return;
-        }
+            if (!query) {
+                displaySpan.textContent = "None";
+                resultsList.innerHTML = '<div class="no-results">NO KEYWORD ENTERED.</div>';
+                return;
+            }
 
-        // 2. キーワードを表示
-        displaySpan.textContent = `"${query}"`;
+            displaySpan.textContent = `"${query}"`;
 
-        // 3. 本来はここでサーバーサイドやJSONから検索しますが、
-        // 静的サイト向けの「簡易シミュレーション」として1秒後に結果を表示
-        setTimeout(() => {
-          // ここをサイト内の実際のコンテンツに合わせて書き換えます
-          const mockDatabase = [
-            {
-              title: "System Environment",
-              desc: "Our technical architecture and philosophy.",
-              url: "environment.html",
-            },
-            {
-              title: "Privacy Policy",
-              desc: "How we handle your data with luxury care.",
-              url: "privacy.html",
-            },
-            {
-              title: "Terms of Service",
-              desc: "The rules of engagement with 114514 & Co.",
-              url: "terms.html",
-            },
-          ];
+            // 簡易データベース
+            const mockDatabase = [
+                { title: "System Environment", desc: "Our technical architecture and philosophy.", url: "environment.html" },
+                { title: "Privacy Policy", desc: "How we handle your data with luxury care.", url: "privacy.html" },
+                { title: "Terms of Service", desc: "The rules of engagement with 114514 & Co.", url: "terms.html" },
+                { title: "Legal Notice", desc: "Compliance and legal information.", url: "tokushoho.html" }
+            ];
 
-          // キーワードが含まれるものだけフィルタリング
-          const filtered = mockDatabase.filter(
-            (item) =>
-              item.title.toLowerCase().includes(query.toLowerCase()) ||
-              item.desc.toLowerCase().includes(query.toLowerCase()),
-          );
+            setTimeout(() => {
+                const filtered = mockDatabase.filter(item => 
+                    item.title.toLowerCase().includes(query.toLowerCase()) || 
+                    item.desc.toLowerCase().includes(query.toLowerCase())
+                );
 
-          if (filtered.length > 0) {
-            resultsList.innerHTML = filtered
-              .map(
-                (item) => `
+                if (filtered.length > 0) {
+                    resultsList.innerHTML = filtered.map(item => `
                         <a href="${item.url}" class="search-item">
                             <h3>${item.title}</h3>
                             <p>${item.desc}</p>
                         </a>
-                    `,
-              )
-              .join("");
-          } else {
-            resultsList.innerHTML = `
-                        <div class="no-results">
-                            NO MATCHING DATA FOUND FOR "${query}".<br>
-                            <small style="display:block; margin-top:10px; opacity:0.5;">Try different keywords or check your spelling.</small>
-                        </div>`;
-          }
-        }, 800);
-      });
+                    `).join('');
+                } else {
+                    resultsList.innerHTML = `<div class="no-results">NO MATCHING DATA FOUND FOR "${query}".</div>`;
+                }
+            }, 500);
+        });
     </script>
-  </body>
+</body>
 </html>
