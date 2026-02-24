@@ -1,47 +1,213 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Company | 114514 & Co.</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-    <div id="ambient-light"></div>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      /* 会社情報専用の追加スタイル */
+      .company-section {
+        margin-bottom: 120px;
+      }
 
-<nav id="common-header"></nav>
+      .mission-text {
+        font-size: 1.6rem;
+        line-height: 1.8;
+        font-weight: 200;
+        text-align: center;
+        letter-spacing: 0.1em;
+        margin-bottom: 40px;
+      }
+
+      .mission-text span {
+        color: var(--primary-accent);
+        font-weight: 600;
+      }
+
+      .info-table {
+        max-width: 800px;
+        margin: 0 auto;
+        border-top: 1px solid var(--border-color);
+      }
+
+      .info-row {
+        display: grid;
+        grid-template-columns: 200px 1fr;
+        padding: 35px 0;
+        border-bottom: 1px solid var(--border-color);
+        align-items: baseline;
+      }
+
+      .info-label {
+        color: var(--secondary-accent);
+        font-size: 0.75rem;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+
+      .info-value {
+        font-size: 0.95rem;
+        line-height: 1.8;
+      }
+
+      /* Google Maps 中央寄せセクション */
+      .map-wrapper {
+        max-width: 800px;
+        margin: 60px auto 0;
+        text-align: center;
+      }
+
+      .map-container {
+        width: 100%;
+        height: 450px; /* 少し高さを出して見やすく */
+        background: #1a1a1a;
+        border: 1px solid var(--border-color);
+        overflow: hidden;
+        position: relative;
+        line-height: 0;
+      }
+
+      .map-container iframe {
+        width: 100%;
+        height: 100%;
+        border: 0;
+        /* filterを削除してカラー表示に */
+      }
+
+      .address-display {
+        margin-bottom: 20px;
+        font-size: 0.9rem;
+        letter-spacing: 0.1em;
+        color: var(--secondary-accent);
+      }
+
+      @media (max-width: 768px) {
+        .mission-text {
+          font-size: 1.2rem;
+        }
+        .info-row {
+          grid-template-columns: 1fr;
+          gap: 10px;
+          padding: 25px 0;
+        }
+        .map-container {
+          height: 300px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="ambient-light"></div>
+    <nav id="common-header"></nav>
 
     <main class="container">
-        <h2 class="section-title reveal">CORPORATE</h2>
+      <h2 class="section-title reveal">CORPORATE</h2>
 
-        <section class="reveal" style="max-width: 600px; margin: 0 auto 100px;">
-            <div style="border-top: 1px solid var(--border-color); padding-top: 40px;">
-                <dl style="display: grid; grid-template-columns: 100px 1fr; gap: 30px; margin-bottom: 30px;">
-                    <dt style="color: var(--secondary-accent); font-size: 0.8rem;">組織名</dt>
-                    <dd style="margin: 0; font-weight: 600;">114514 & Co.</dd>
-                </dl>
-                <dl style="display: grid; grid-template-columns: 100px 1fr; gap: 30px; margin-bottom: 30px;">
-                    <dt style="color: var(--secondary-accent); font-size: 0.8rem;">設立</dt>
-                    <dd style="margin: 0;">2026.02.24</dd>
-                </dl>
-                <dl style="display: grid; grid-template-columns: 100px 1fr; gap: 30px;">
-                    <dt style="color: var(--secondary-accent); font-size: 0.8rem;">事業内容</dt>
-                    <dd style="margin: 0;">王道を往く次世代ゲーム開発、デジタルコンテンツの企画・運営</dd>
-                </dl>
+      <section class="company-section reveal">
+        <p class="mission-text">
+          妥協なきクオリティで、<br />
+          <span>王道を往く</span>体験を創造する。
+        </p>
+        <p
+          style="
+            text-align: center;
+            color: var(--secondary-accent);
+            font-size: 0.9rem;
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 2;
+          "
+        >
+          114514 & Co.
+          は、流行に左右されない本質的な価値を追求するクリエイティブ集団です。<br />
+          最先端の技術と緻密なクラフトマンシップを融合させ、<br />
+          世界中のプレイヤーの記憶に深く刻まれるプロダクトを世に送り出します。
+        </p>
+      </section>
+
+      <section class="company-section reveal">
+        <div class="info-table">
+          <div class="info-row">
+            <div class="info-label">Organization</div>
+            <div class="info-value" style="font-weight: 800; font-size: 1.2rem">
+              114514 & Co.
             </div>
-        </section>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Established</div>
+            <div class="info-value">2026年2月24日</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Executive</div>
+            <div class="info-value">代表取締役　野獣 先輩</div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Business Content</div>
+            <div class="info-value">
+              ・ハイエンド・ビデオゲームの企画・開発<br />
+              ・次世代レンダリングエンジンの研究開発<br />
+              ・デジタルコンテンツのグローバル展開・運営
+            </div>
+          </div>
+          <div class="info-row">
+            <div class="info-label">Main Bank</div>
+            <div class="info-value">下北沢中央銀行 / 帝国デジタル信用金庫</div>
+          </div>
+        </div>
 
-        <section class="recruit-box reveal">
-            <h3 style="letter-spacing: 0.3em; font-weight: 200;">RECRUITING</h3>
-            <p style="margin: 30px 0; color: var(--secondary-accent);">
-                妥協のない最高品質を追い求める、王道を往く同志を募集中。
-            </p>
-            <a href="mailto:your-email@example.com" class="btn">JOIN THE TEAM</a>
-        </section>
+        <div class="map-wrapper reveal">
+          <div class="address-display">
+            <span style="color: var(--primary-accent); margin-right: 10px"
+              >LOCATION</span
+            >
+            〒155-0031 東京都世田谷区北沢 8-1-0 / Studio Alpha
+          </div>
+          <div class="map-container">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3241.747798842448!2d139.66443651525816!3d35.66347318019794!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6018f3690623a1d5%3A0x6b008639207e057!2z5LiL5YyX5rKi6aeF!5e0!3m2!1sja!2sjp!4v1677220000000!5m2!1sja!2sjp"
+              allowfullscreen=""
+              loading="lazy"
+              referrerpolicy="no-referrer-when-downgrade"
+            ></iframe>
+          </div>
+        </div>
+      </section>
+
+      <section
+        class="reveal"
+        style="
+          padding: 100px 0;
+          text-align: center;
+          border-top: 1px solid var(--border-color);
+        "
+      >
+        <h3
+          style="
+            font-size: 0.7rem;
+            letter-spacing: 0.5em;
+            color: var(--primary-accent);
+            margin-bottom: 30px;
+          "
+        >
+          OUR VISION
+        </h3>
+        <p
+          style="
+            font-size: 1.1rem;
+            font-weight: 200;
+            color: var(--secondary-accent);
+            line-height: 2.2;
+          "
+        >
+          「良いものを作る」というシンプルな目的のために。<br />
+          私たちは、あらゆる妥協を排除し、王道を突き進みます。
+        </p>
+      </section>
     </main>
 
-<footer id="common-footer"></footer>
+    <footer id="common-footer"></footer>
 
     <script src="assets/js/script.js"></script>
-</body>
+  </body>
 </html>

@@ -1,54 +1,274 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>News | 114514 & Co.</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
-<body>
-    <div id="ambient-light"></div>
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <style>
+      /* ニュース専用の追加スタイル */
+      .news-article {
+        border-bottom: 1px solid var(--border-color);
+        padding: 40px 0;
+        display: grid;
+        grid-template-columns: 150px 1fr;
+        gap: 20px;
+      }
+      .news-date {
+        color: var(--secondary-accent);
+        font-size: 0.8rem;
+        font-weight: 200;
+        padding-top: 5px;
+      }
+      .news-title {
+        font-size: 1.25rem;
+        margin: 0 0 15px 0;
+        font-weight: 600;
+      }
+      .news-summary {
+        color: var(--secondary-accent);
+        font-size: 0.9rem;
+        margin-bottom: 20px;
+      }
 
-<nav id="common-header"></nav>
+      .news-read-more {
+        color: var(--primary-accent);
+        font-size: 0.7rem;
+        text-decoration: none;
+        border-bottom: 1px solid var(--secondary-accent);
+        padding-bottom: 2px;
+        cursor: pointer;
+        background: transparent;
+        border-top: none;
+        border-left: none;
+        border-right: none;
+        letter-spacing: 0.2em;
+      }
+
+      /* 展開エリアのスタイル（script.jsの制御用） */
+      .news-details {
+        max-height: 0;
+        overflow: hidden;
+        transition:
+          max-height 0.6s var(--ease-out-expo),
+          opacity 0.4s ease,
+          margin-top 0.4s ease;
+        opacity: 0;
+        margin-top: 0;
+        font-size: 0.9rem;
+        line-height: 1.8;
+        color: var(--secondary-accent);
+      }
+      .news-details.active {
+        max-height: 1000px;
+        opacity: 1;
+        margin-top: 20px;
+        padding: 20px;
+        background: rgba(255, 255, 255, 0.03);
+        border-left: 1px solid var(--primary-accent);
+      }
+
+      @media (max-width: 768px) {
+        .news-article {
+          grid-template-columns: 1fr;
+          gap: 10px;
+          padding: 30px 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="ambient-light"></div>
+    <nav id="common-header"></nav>
 
     <main class="container">
-        <h2 class="section-title reveal">NEWS RELEASE</h2>
-        
-        <p class="reveal" style="text-align: center; margin-bottom: 80px; color: var(--secondary-accent); font-size: 0.8rem; letter-spacing: 0.3em;">
-            LATEST ANNOUNCEMENTS
-        </p>
+      <h2 class="section-title reveal">NEWS RELEASE</h2>
+      <p
+        class="reveal"
+        style="
+          text-align: center;
+          margin-bottom: 80px;
+          color: var(--secondary-accent);
+          font-size: 0.8rem;
+          letter-spacing: 0.3em;
+        "
+      >
+        LATEST ANNOUNCEMENTS
+      </p>
 
-        <div class="news-list">
-            <article class="reveal" style="border-bottom: 1px solid var(--border-color); padding: 40px 0; display: grid; grid-template-columns: 150px 1fr; gap: 20px;">
-                <div style="color: var(--secondary-accent); font-size: 0.8rem; font-weight: 200; padding-top: 5px;">
-                    2026.02.24
-                </div>
-                <div>
-                    <h3 style="font-size: 1.25rem; margin: 0 0 15px 0; font-weight: 600;">ブランド・アイデンティティの再定義</h3>
-                    <p style="color: var(--secondary-accent); font-size: 0.9rem; margin-bottom: 20px;">
-                        公式サイトの Luxury Modern へのフルリニューアルが完了。装飾を削ぎ落とし、クオリティそのもので語る新たなフェーズへ移行しました。
-                    </p>
-                    <a href="#" style="color: var(--primary-accent); font-size: 0.7rem; text-decoration: none; border-bottom: 1px solid var(--secondary-accent); padding-bottom: 2px;">READ MORE</a>
-                </div>
-            </article>
+      <div class="news-list">
+        <article class="news-article reveal">
+          <div class="news-date">2026.02.24</div>
+          <div>
+            <h3 class="news-title">ブランド・アイデンティティの再定義</h3>
+            <p class="news-summary">
+              公式サイトの Luxury Modern
+              へのフルリニューアルが完了。装飾を削ぎ落とした新たなフェーズへ。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              私たちのデザインフィロソフィーは「王道」にあります。今回のリニューアルでは、ユーザー体験を最優先し、情報へのアクセシビリティと視覚的な品格を両立させました。今後のプロジェクト展開にご期待ください。
+            </div>
+          </div>
+        </article>
 
-            <article class="reveal" style="border-bottom: 1px solid var(--border-color); padding: 40px 0; display: grid; grid-template-columns: 150px 1fr; gap: 20px;">
-                <div style="color: var(--secondary-accent); font-size: 0.8rem; font-weight: 200; padding-top: 5px;">
-                    2026.02.20
-                </div>
-                <div>
-                    <h3 style="font-size: 1.25rem; margin: 0 0 15px 0; font-weight: 600;">組織「114514 & Co.」設立のお知らせ</h3>
-                    <p style="color: var(--secondary-accent); font-size: 0.9rem; margin-bottom: 20px;">
-                        次世代の「王道を往く」ゲーム開発のため、新たな組織が始動。私たちのビジョンに妥協はありません。
-                    </p>
-                    <a href="#" style="color: var(--primary-accent); font-size: 0.7rem; text-decoration: none; border-bottom: 1px solid var(--secondary-accent); padding-bottom: 2px;">READ MORE</a>
-                </div>
-            </article>
-        </div>
+        <article class="news-article reveal">
+          <div class="news-date">2026.02.15</div>
+          <div>
+            <h3 class="news-title">新規プロジェクト「810」技術デモ公開</h3>
+            <p class="news-summary">
+              次世代エンジンを用いたリアルタイム・レイトレーシング技術の検証結果を一部公開しました。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              最新のライティング技術を駆使し、空気感の表現に徹底的にこだわりました。特に屋内シーンにおける光の拡散と反射のシミュレーションは、既存のゲーム表現の限界を押し広げるものとなっています。
+            </div>
+          </div>
+        </article>
+
+        <article class="news-article reveal">
+          <div class="news-date">2026.02.01</div>
+          <div>
+            <h3 class="news-title">クリエイティブ拠点「Studio Alpha」開設</h3>
+            <p class="news-summary">
+              都内に新たな開発拠点を設置。エンジニアとアーティストの融合を加速させます。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              新しいスタジオは「クリエイティブな衝突」をコンセプトに設計されました。オープンなワークスペースと、最新のモーションキャプチャ機材を備え、世界基準のコンテンツ制作を目指します。
+            </div>
+          </div>
+        </article>
+
+        <article class="news-article reveal">
+          <div class="news-date">2026.01.20</div>
+          <div>
+            <h3 class="news-title">グローバルパートナーシップの締結</h3>
+            <p class="news-summary">
+              欧州大手パブリッシャーとの提携により、全世界への同時展開体制を構築しました。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              この提携により、多言語ローカライズおよび世界各地域でのプロモーションを強化します。日本の「王道」を世界の「標準」へと昇華させるための大きな一歩です。
+            </div>
+          </div>
+        </article>
+
+        <article class="news-article reveal">
+          <div class="news-date">2026.01.10</div>
+          <div>
+            <h3 class="news-title">サウンドディレクター就任のお知らせ</h3>
+            <p class="news-summary">
+              世界的評価を受ける作曲家をサウンドディレクターとして迎え、没入感を極限まで高めます。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              音は体験の半分を占めます。オーケストラ収録による壮大な楽曲群と、環境音の動的生成システムにより、プレイヤーを物語の中心へと誘います。
+            </div>
+          </div>
+        </article>
+
+        <article class="news-article reveal">
+          <div class="news-date">2025.12.25</div>
+          <div>
+            <h3 class="news-title">冬季特別インターンシップ募集開始</h3>
+            <p class="news-summary">
+              次世代を担う若い才能とともに、未来のエンターテインメントを共創します。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              学生を対象とした実務直結型のプログラムを実施します。トップクラスのクリエイターから直接指導を受けられる貴重な機会を提供し、業界の発展に寄与します。
+            </div>
+          </div>
+        </article>
+
+        <article class="news-article reveal">
+          <div class="news-date">2025.12.10</div>
+          <div>
+            <h3 class="news-title">AIキャラクター制御システムの特許出願</h3>
+            <p class="news-summary">
+              より人間らしく、より予測不能な挙動を実現する独自のAIアルゴリズムを開発。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              単なるパターン認識ではなく、環境の変化に応じて自律的に判断を下すNPC。プレイヤーとの相互作用により、遊ぶたびに異なるドラマが生まれます。
+            </div>
+          </div>
+        </article>
+
+        <article class="news-article reveal">
+          <div class="news-date">2025.11.30</div>
+          <div>
+            <h3 class="news-title">サステナブルな開発環境への移行</h3>
+            <p class="news-summary">
+              リモートワークとオフィスワークを高度に融合させたハイブリッド体制を正式採用。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              個々のクリエイターが最高のパフォーマンスを発揮できるよう、柔軟な働き方をサポートします。心身の健康こそが、質の高いクオリティを生む源泉です。
+            </div>
+          </div>
+        </article>
+
+        <article class="news-article reveal">
+          <div class="news-date">2025.11.15</div>
+          <div>
+            <h3 class="news-title">「114514 & Co.」ビジュアルブック発刊決定</h3>
+            <p class="news-summary">
+              設立から現在までのコンセプトアートを凝縮した記念すべき一冊が登場。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              初期の構想スケッチから、未公開のキャラクターデザインまでを網羅。私たちの美学がどのように形作られてきたかを辿る一冊となっています。
+            </div>
+          </div>
+        </article>
+
+        <article class="news-article reveal">
+          <div class="news-date">2025.11.01</div>
+          <div>
+            <h3 class="news-title">
+              プレリリース・コミュニティ「THE CORE」発足
+            </h3>
+            <p class="news-summary">
+              熱狂的なファンとともにプロジェクトを磨き上げるクローズドコミュニティを設立。
+            </p>
+            <button class="news-read-more">READ MORE</button>
+            <div class="news-details">
+              開発初期段階からフィードバックを受け、作品を共に完成させていく試みです。限定イベントや先行プレイヤビリティチェックなどの特典を用意しています。
+            </div>
+          </div>
+        </article>
+      </div>
     </main>
 
-<footer id="common-footer"></footer>
+    <footer id="common-footer"></footer>
 
     <script src="assets/js/script.js"></script>
-</body>
+    <script>
+      // news.html 専用の展開スクリプト
+      document.addEventListener("DOMContentLoaded", () => {
+        const newsButtons = document.querySelectorAll(".news-read-more");
+
+        newsButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            const details = button.nextElementSibling;
+            const isActive = details.classList.toggle("active");
+
+            button.textContent = isActive ? "CLOSE" : "READ MORE";
+
+            if (isActive) {
+              // 少しだけスクロールして見やすくする
+              setTimeout(() => {
+                details.scrollIntoView({
+                  behavior: "smooth",
+                  block: "nearest",
+                });
+              }, 200);
+            }
+          });
+        });
+      });
+    </script>
+  </body>
 </html>
