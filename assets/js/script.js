@@ -1,9 +1,8 @@
 /* --- 114514 & Co. Luxury Modern Unified Script --- */
 
 document.addEventListener("DOMContentLoaded", () => {
-  console.log("SYSTEM ONLINE: 114514-CO UNIFIED ARCHITECTURE CONNECTED...");
+  console.log("SYSTEM ONLINE: 114514-CO UNIFIED ARCHITECTURE CONNECTED..."); // 1. 共通パーツの読み込みと初期化
 
-  // 1. 共通パーツの読み込みと初期化
   loadComponent("common-header", "assets/inc/header.inc", () => {
     initMobileMenu();
     initSearch();
@@ -12,10 +11,9 @@ document.addEventListener("DOMContentLoaded", () => {
   loadComponent("common-footer", "assets/inc/footer.inc", () => {
     initBackToTop();
     initCookieBanner();
-    initSoundToggle(); // システムサウンドの切り替え機能を追加
-  });
+    initSoundToggle(); // システムサウンドの切り替え・再生機能
+  }); // 2. 即時実行可能なエフェクト
 
-  // 2. 即時実行可能なエフェクト
   initAmbientLight();
   initScrollReveal();
   initKonamiCommand();
@@ -41,6 +39,47 @@ async function loadComponent(id, file, callback) {
 }
 
 /**
+ * システムサウンドのステータス切替 & BGM・SE制御
+ */
+function initSoundToggle() {
+  const statusBtn = document.getElementById("sound-status");
+  const bgm = document.getElementById("myBGM"); // クリックSEの読み込み（パスは環境に合わせて調整してください）
+
+  const clickSE = new Audio("assets/audio/click.mp3");
+  clickSE.volume = 0.4;
+
+  if (!statusBtn) return;
+
+  statusBtn.addEventListener("click", () => {
+    // 現在の状態を確認
+    const isCurrentlyEnabled = !statusBtn.classList.contains("disabled");
+
+    if (isCurrentlyEnabled) {
+      // --- DISABLE（停止処理） ---
+      statusBtn.textContent = "DISABLED";
+      statusBtn.classList.add("disabled");
+      if (bgm) bgm.pause();
+      console.log("SYSTEM SOUND: DEACTIVATED");
+    } else {
+      // --- ENABLE（起動処理） ---
+      statusBtn.textContent = "ENABLED";
+      statusBtn.classList.remove("disabled"); // BGM再生
+
+      if (bgm) {
+        bgm.play().catch(() => {
+          console.log("Playback blocked by browser. Interaction required.");
+        });
+      } // クリックSE再生（ENABLEDになった瞬間のみ鳴らす演出）
+
+      clickSE.currentTime = 0;
+      clickSE.play().catch(() => {}); // エラー無視（ファイル不在時など）
+
+      console.log("SYSTEM SOUND: ACTIVATED");
+    }
+  });
+}
+
+/**
  * モバイルメニュー制御
  */
 function initMobileMenu() {
@@ -51,13 +90,15 @@ function initMobileMenu() {
     menuToggle.addEventListener("click", () => {
       menuToggle.classList.toggle("is-active");
       navList.classList.toggle("active");
-      document.body.style.overflow = navList.classList.contains("active") ? "hidden" : "";
+      document.body.style.overflow = navList.classList.contains("active")
+        ? "hidden"
+        : "";
     });
   }
 }
 
 /**
- * 検索窓の制御 (自サイト内検索ページ遷移版)
+ * 検索窓の制御
  */
 function initSearch() {
   const trigger = document.getElementById("search-trigger");
@@ -93,28 +134,6 @@ function initSearch() {
 }
 
 /**
- * システムサウンドのステータス切替
- */
-function initSoundToggle() {
-  const statusBtn = document.getElementById("sound-status");
-  if (!statusBtn) return;
-
-  statusBtn.addEventListener("click", () => {
-    const isEnabled = statusBtn.textContent === "ENABLED";
-    
-    if (isEnabled) {
-      statusBtn.textContent = "DISABLED";
-      statusBtn.classList.add("disabled"); // CSSで色を変えるためのクラス
-      console.log("SYSTEM SOUND: DEACTIVATED");
-    } else {
-      statusBtn.textContent = "ENABLED";
-      statusBtn.classList.remove("disabled");
-      console.log("SYSTEM SOUND: ACTIVATED");
-    }
-  });
-}
-
-/**
  * Cookieバナー制御
  */
 function initCookieBanner() {
@@ -136,7 +155,9 @@ function initCookieBanner() {
     acceptBtn.addEventListener("click", () => {
       banner.classList.remove("show");
       localStorage.setItem("cookieAccepted", "true");
-      setTimeout(() => { banner.style.display = "none"; }, 800);
+      setTimeout(() => {
+        banner.style.display = "none";
+      }, 800);
     });
   }
 }
@@ -163,19 +184,6 @@ function initBackToTop() {
 }
 
 /**
- * 隠しリンク（ピリオド）の動作確認
- */
-function initSecretLink() {
-  const secretTrigger = document.querySelector(".secret-trigger");
-  if (secretTrigger) {
-    secretTrigger.addEventListener("click", (e) => {
-      // aタグのデフォルト遷移を邪魔しない程度にログを出力
-      console.log("SECRET ACCESS GRANTED. REDIRECTING...");
-    });
-  }
-}
-
-/**
  * アンビエントライト
  */
 function initAmbientLight() {
@@ -194,13 +202,16 @@ function initAmbientLight() {
  * スクロール連動アニメーション
  */
 function initScrollReveal() {
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("active");
-      }
-    });
-  }, { threshold: 0.1 });
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("active");
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
 
   document.querySelectorAll(".reveal").forEach((el) => observer.observe(el));
 }
@@ -209,7 +220,18 @@ function initScrollReveal() {
  * 隠しコマンド（コナミコマンド）
  */
 function initKonamiCommand() {
-  const secretCode = ["ArrowUp","ArrowUp","ArrowDown","ArrowDown","ArrowLeft","ArrowRight","ArrowLeft","ArrowRight","b","a"];
+  const secretCode = [
+    "ArrowUp",
+    "ArrowUp",
+    "ArrowDown",
+    "ArrowDown",
+    "ArrowLeft",
+    "ArrowRight",
+    "ArrowLeft",
+    "ArrowRight",
+    "b",
+    "a",
+  ];
   let inputCode = [];
 
   window.addEventListener("keydown", (e) => {
@@ -218,7 +240,9 @@ function initKonamiCommand() {
     if (JSON.stringify(inputCode) === JSON.stringify(secretCode)) {
       document.body.style.transition = "opacity 2s ease";
       document.body.style.opacity = "0";
-      setTimeout(() => { window.location.href = "secret.html"; }, 2000);
+      setTimeout(() => {
+        window.location.href = "secret.html";
+      }, 2000);
     }
   });
 }

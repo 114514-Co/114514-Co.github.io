@@ -25,25 +25,75 @@
     </header>
 
     <main class="container">
-      <section class="section-screenshots reveal">
+      <section id="visuals" class="section-screenshots reveal">
         <h2 class="section-title">VISUALS</h2>
-        <div class="screenshot-grid">
-          <div class="shot-placeholder"><span>IMPRESSIVE SCENE I</span></div>
-          <div class="shot-placeholder"><span>IMPRESSIVE SCENE II</span></div>
-          <div class="shot-placeholder"><span>IMPRESSIVE SCENE III</span></div>
+        <div class="visual-panel-grid">
+          <div class="visual-card">
+            <div class="shot-placeholder">
+              <img
+                src="assets/img/scene1.jpg"
+                alt="Scene 1"
+                class="panel-img"
+                onerror="this.style.display = 'none'"
+              />
+              <div class="card-overlay">
+                <span class="card-label">IMPRESSIVE SCENE I</span>
+              </div>
+            </div>
+          </div>
+          <div class="visual-card">
+            <div class="shot-placeholder">
+              <img
+                src="assets/img/scene2.jpg"
+                alt="Scene 2"
+                class="panel-img"
+                onerror="this.style.display = 'none'"
+              />
+              <div class="card-overlay">
+                <span class="card-label">IMPRESSIVE SCENE II</span>
+              </div>
+            </div>
+          </div>
+          <div class="visual-card">
+            <div class="shot-placeholder">
+              <img
+                src="assets/img/scene3.jpg"
+                alt="Scene 3"
+                class="panel-img"
+                onerror="this.style.display = 'none'"
+              />
+              <div class="card-overlay">
+                <span class="card-label">IMPRESSIVE SCENE III</span>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       <section class="reveal">
         <h2 class="section-title">LATEST PROJECT</h2>
-        <div class="game-card">
-          <div class="game-info">
-            <p class="status-label">NOW IN DEVELOPMENT</p>
-            <h3>PROJECT: 810</h3>
-            <p>
-              我々が到達した「王道」の答え。妥協なきクオリティで贈る、渾身のタイトルが間もなく始動。
-            </p>
-            <a href="#" class="btn">DISCOVER MORE</a>
+        <div class="project-panel">
+          <div class="project-visual">
+            <div class="shot-placeholder">
+              <img
+                src="assets/img/project_bg.jpg"
+                alt="Project 810"
+                class="panel-img"
+                onerror="this.style.display = 'none'"
+              />
+            </div>
+            <div class="project-overlay">
+              <div class="game-info">
+                <p class="status-label">NOW IN DEVELOPMENT</p>
+                <h3>PROJECT: 810</h3>
+                <p class="project-desc">
+                  我々が到達した「王道」の答え。妥協なきクオリティで贈る、渾身のタイトルが間もなく始動。
+                </p>
+                <div class="project-actions">
+                  <a href="#" class="btn">DISCOVER MORE</a>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
