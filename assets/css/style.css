@@ -25,6 +25,7 @@ body {
   letter-spacing: 0.05em;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
+  width: 100%; /* はみ出し防止 */
 }
 
 /* --- Loading System --- */
@@ -513,12 +514,12 @@ footer {
   cursor: pointer;
 }
 
-/* --- UI Elements (TOPボタンサイズアップ版) --- */
+/* --- UI Elements --- */
 #back-to-top {
   position: fixed;
   right: 40px;
   bottom: 40px;
-  font-size: 0.9rem; /* 0.6remから大幅にサイズアップ */
+  font-size: 0.9rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   color: var(--secondary-accent);
@@ -527,13 +528,13 @@ footer {
   z-index: 100;
   opacity: 0.6;
   text-decoration: none !important;
-  padding: 10px; /* 当たり判定を広げる */
+  padding: 10px;
 }
 #back-to-top:hover {
   opacity: 1;
   color: var(--primary-accent);
   transform: translateY(-5px);
-  border-bottom: 1px solid var(--primary-accent); /* ホバー時に線を表示 */
+  border-bottom: 1px solid var(--primary-accent);
 }
 
 .section-title {
@@ -558,18 +559,65 @@ footer {
   transform: translateY(0);
 }
 
-/* --- Responsive --- */
+/* --- Responsive (はみ出し徹底対策版) --- */
 @media (max-width: 768px) {
+  /* ナビゲーションのはみ出し対策 */
+  nav {
+    padding: 0 15px;
+    height: 70px;
+  }
+  .nav-logo {
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+  }
+  .nav-links a {
+    margin-left: 12px;
+    font-size: 0.6rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ヒーローセクションの文字あふれ防止 */
+  .glitch {
+    font-size: 3rem; /* 固定サイズに近い設定にしてはみ出しを防ぐ */
+    line-height: 1.2;
+    word-wrap: break-word;
+  }
+  .tagline {
+    font-size: 0.9rem;
+    letter-spacing: 0.1em;
+    padding: 0 10px;
+  }
+
+  /* グリッドカードの最小幅をリセット */
+  .visual-panel-grid {
+    grid-template-columns: 1fr; /* スマホでは強制1列 */
+    gap: 20px;
+  }
+
   .project-panel {
     flex-direction: column;
     min-height: auto;
   }
   .project-overlay {
-    padding: 40px 20px;
-    background: rgba(0, 0, 0, 0.95);
-    justify-content: center;
+    padding: 30px 20px;
+    background: rgba(0, 0, 0, 0.9);
     text-align: center;
+    width: 100%;
+    box-sizing: border-box;
   }
+
+  .game-info h3 {
+    font-size: 1.8rem;
+  }
+
+  /* コンテナのパディング調整 */
+  .container {
+    padding: 0 20px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* フッターの中央寄せとはみ出し防止 */
   .footer-container,
   .footer-sns,
   .footer-links {
@@ -577,29 +625,50 @@ footer {
     justify-content: center;
   }
   .footer-links {
-    flex-direction: row;
     flex-wrap: wrap;
-    gap: 10px 20px;
+    gap: 10px 15px;
   }
+  .footer-links a {
+    font-size: 0.6rem;
+  }
+
+  /* サウンドコントロール */
+  .system-sound-control {
+    transform: scale(0.85);
+    margin: 10px 0;
+  }
+
+  /* TOPボタン */
+  #back-to-top {
+    right: 20px;
+    bottom: 20px;
+    font-size: 0.8rem;
+    padding: 5px 10px;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
+    border: 1px solid var(--border-color);
+  }
+
+  /* Cookie Banner の文字あふれ防止 */
   .cookie-content {
     flex-direction: column;
     gap: 15px;
     text-align: center;
+    padding: 0 15px;
   }
-  .details-content.active {
-    max-height: 2000px;
+}
+
+/* 極小デバイス(iPhone SE等)用 */
+@media (max-width: 380px) {
+  .nav-links {
+    display: flex;
+    gap: 8px;
   }
-  .system-sound-control {
-    transform: scale(0.9);
+  .nav-links a {
+    margin-left: 0;
+    font-size: 0.55rem;
   }
-  /* スマホでのTOPボタン調整 */
-  #back-to-top {
-    right: 25px;
-    bottom: 25px;
-    font-size: 0.85rem;
-    padding: 8px 12px;
-    background: rgba(0, 0, 0, 0.3); /* スマホで見えやすく背景を少し付与 */
-    backdrop-filter: blur(5px);
-    border: 1px solid var(--border-color);
+  .glitch {
+    font-size: 2.2rem;
   }
 }
