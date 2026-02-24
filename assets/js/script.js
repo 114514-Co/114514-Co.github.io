@@ -18,18 +18,48 @@ document.addEventListener("DOMContentLoaded", () => {
     initSoundToggle(); // システムサウンドの切り替え・再生機能
   });
 
-  // 2. 即時実行可能なエフェクト
+  // 2. 即時実行可能なエフェクト（index.htmlにある要素の制御）
   initAmbientLight();
   initScrollReveal();
   initKonamiCommand();
+  initProjectToggle(); // 追加：プロジェクト展開制御
 });
 
 /**
+ * プロジェクト情報の展開制御 (LATEST PROJECT用)
+ */
+function initProjectToggle() {
+  const toggleBtn = document.getElementById("project-toggle");
+  const details = document.getElementById("project-details");
+
+  if (toggleBtn && details) {
+    toggleBtn.addEventListener("click", function (e) {
+      e.preventDefault();
+
+      // クラスの切り替え
+      const isActive = details.classList.toggle("active");
+      this.classList.toggle("active");
+
+      // テキストの切り替え
+      this.textContent = isActive ? "CLOSE DETAILS" : "DISCOVER MORE";
+
+      // 展開時に視認性を上げるための微スクロール（必要に応じて）
+      if (isActive) {
+        setTimeout(() => {
+          const yOffset = -100; // ヘッダー分などを考慮
+          const y =
+            details.getBoundingClientRect().top + window.pageYOffset + yOffset;
+          window.scrollTo({ top: y, behavior: "smooth" });
+        }, 300);
+      }
+    });
+  }
+}
+
+/**
  * 統合ローディングシステム
- * HTMLを自動生成し、カウントアップ演出を実行
  */
 function initUnifiedLoader() {
-  // すでに存在しない場合のみ生成（二重実行防止）
   if (document.getElementById("loading-screen")) return;
 
   const loadingHTML = `
@@ -49,19 +79,15 @@ function initUnifiedLoader() {
   const loaderText = document.getElementById("loader-text");
   let progress = 0;
 
-  // ローディング演出の実行
   const progressInterval = setInterval(() => {
-    // 擬似プログレス増加
     progress += Math.floor(Math.random() * 12) + 3;
 
     if (progress >= 100) {
       progress = 100;
       clearInterval(progressInterval);
 
-      // 完了時の演出（window.onloadを待たずに100%になったら終了）
       setTimeout(() => {
         document.body.classList.add("loaded");
-        // アニメーション後にDOMから非表示にする（クリックイベント阻害防止）
         setTimeout(() => {
           document.getElementById("loading-screen").style.display = "none";
         }, 800);
@@ -72,11 +98,9 @@ function initUnifiedLoader() {
     if (loaderText) loaderText.innerText = `${progress}%`;
   }, 60);
 
-  // 念のため、全ての外部リソース（重い画像等）が読み終わったら強制終了させる設定
   window.addEventListener("load", () => {
     if (progress < 100) {
       progress = 100;
-      // 上記のsetInterval側で完了処理が行われる
     }
   });
 }
