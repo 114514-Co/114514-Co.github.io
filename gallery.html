@@ -33,6 +33,7 @@
         aspect-ratio: 16/9;
         overflow: hidden;
         position: relative;
+        background: #000;
       }
 
       .img-container img,
@@ -40,17 +41,18 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        transition: transform 0.6s var(--ease-out-expo);
-        filter: grayscale(0.5); /* 初期状態は少し落ち着いた色に */
+        transition:
+          transform 0.6s var(--ease-out-expo),
+          filter 0.6s ease;
+        filter: grayscale(0.5) brightness(0.8);
       }
 
       .gallery-item:hover .img-container img,
       .gallery-item:hover .img-container video {
         transform: scale(1.05);
-        filter: grayscale(0); /* ホバーで鮮明に */
+        filter: grayscale(0) brightness(1);
       }
 
-      /* キャプション */
       .gallery-caption {
         padding: 20px;
         display: flex;
@@ -73,7 +75,6 @@
         color: #fff;
       }
 
-      /* --- 動画用アイコン --- */
       .video-badge {
         position: absolute;
         top: 15px;
@@ -95,22 +96,28 @@
         }
       }
 
-      /* --- ライトボックス（拡大表示） --- */
       #lightbox {
         position: fixed;
         inset: 0;
         background: rgba(0, 0, 0, 0.95);
         z-index: 2000;
-        display: none; /* 初期は非表示 */
+        display: none;
         align-items: center;
         justify-content: center;
         cursor: zoom-out;
       }
 
+      #lightbox-content {
+        width: 90%;
+        max-width: 1200px;
+        display: flex;
+        justify-content: center;
+      }
+
       #lightbox img,
       #lightbox video {
-        max-width: 90%;
-        max-height: 80%;
+        max-width: 100%;
+        max-height: 80vh;
         box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
       }
     </style>
@@ -139,12 +146,12 @@
           <div class="img-container">
             <span class="video-badge">MOTION</span>
             <video
-              src="assets/video/trailer.mp4"
+              src="https://cdn.pixabay.com/video/2020/09/20/50534-462319934_large.mp4"
               muted
               loop
               autoplay
               playsinline
-              poster="assets/img/shot1.png"
+              poster="https://images.unsplash.com/photo-1478760329108-5c3ed9d495a0?auto=format&fit=crop&w=800&q=80"
             ></video>
           </div>
           <div class="gallery-caption">
@@ -161,8 +168,8 @@
             />
           </div>
           <div class="gallery-caption">
-            <span class="id">02</span>
-            <span class="title">DISTRICT CONCEPT ART</span>
+            <span class="id">02</span
+            ><span class="title">DISTRICT CONCEPT ART</span>
           </div>
         </div>
 
@@ -174,8 +181,8 @@
             />
           </div>
           <div class="gallery-caption">
-            <span class="id">03</span>
-            <span class="title">CORE ENGINE ARCHIVE</span>
+            <span class="id">03</span
+            ><span class="title">CORE ENGINE ARCHIVE</span>
           </div>
         </div>
 
@@ -187,8 +194,8 @@
             />
           </div>
           <div class="gallery-caption">
-            <span class="id">04</span>
-            <span class="title">CREATIVE DESIGN LAB</span>
+            <span class="id">04</span
+            ><span class="title">CREATIVE DESIGN LAB</span>
           </div>
         </div>
 
@@ -200,8 +207,8 @@
             />
           </div>
           <div class="gallery-caption">
-            <span class="id">05</span>
-            <span class="title">NEO CITY NIGHT-VIEW</span>
+            <span class="id">05</span
+            ><span class="title">NEO CITY NIGHT-VIEW</span>
           </div>
         </div>
 
@@ -209,16 +216,17 @@
           <div class="img-container">
             <span class="video-badge">MOTION</span>
             <video
-              src="assets/video/ambient.mp4"
+              src="https://cdn.pixabay.com/video/2021/09/01/87103-595393160_large.mp4"
               muted
               loop
               autoplay
               playsinline
+              poster="https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&w=800&q=80"
             ></video>
           </div>
           <div class="gallery-caption">
-            <span class="id">06</span>
-            <span class="title">AMBIENT FLOW TEST</span>
+            <span class="id">06</span
+            ><span class="title">AMBIENT FLOW TEST</span>
           </div>
         </div>
       </div>
@@ -232,26 +240,38 @@
 
     <script src="assets/js/script.js"></script>
     <script>
-      // ライトボックス機能
       function openLightbox(element) {
         const lightbox = document.getElementById("lightbox");
         const content = document.getElementById("lightbox-content");
-        const media = element.querySelector("img, video").cloneNode(true);
+        const originalMedia = element.querySelector("img, video");
+        if (!originalMedia) return;
 
-        // 動画の場合はコントロールを表示し、自動再生させる
+        const media = originalMedia.cloneNode(true);
+
         if (media.tagName === "VIDEO") {
           media.controls = true;
-          media.autoplay = true;
+          media.muted = false;
+          // 再生がブロックされた場合のエラー回避
+          setTimeout(() => {
+            const playPromise = media.play();
+            if (playPromise !== undefined) {
+              playPromise.catch((error) =>
+                console.log("Auto-play was prevented"),
+              );
+            }
+          }, 100);
         }
 
         content.innerHTML = "";
         content.appendChild(media);
         lightbox.style.display = "flex";
-        document.body.style.overflow = "hidden"; // 背景スクロール禁止
+        document.body.style.overflow = "hidden";
       }
 
       function closeLightbox() {
         const lightbox = document.getElementById("lightbox");
+        const content = document.getElementById("lightbox-content");
+        content.innerHTML = "";
         lightbox.style.display = "none";
         document.body.style.overflow = "auto";
       }
