@@ -514,27 +514,30 @@ footer {
   cursor: pointer;
 }
 
-/* --- UI Elements --- */
+/* --- UI Elements (Back to Top Fixed) --- */
 #back-to-top {
   position: fixed;
   right: 40px;
   bottom: 40px;
-  font-size: 0.9rem;
+  font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.2em;
-  color: var(--secondary-accent);
-  transform: none;
-  transition: all 0.3s var(--ease-out-expo);
+  color: var(--primary-accent);
+  background: rgba(8, 8, 8, 0.9); /* 濃い背景を追加して透けを防止 */
+  backdrop-filter: blur(10px); /* 背景をぼかして視認性アップ */
+  border: 1px solid var(--border-color);
+  padding: 12px 20px;
   z-index: 100;
   opacity: 0.6;
   text-decoration: none !important;
-  padding: 10px;
+  transition: all 0.3s var(--ease-out-expo);
 }
+
 #back-to-top:hover {
   opacity: 1;
-  color: var(--primary-accent);
+  background: var(--primary-accent);
+  color: #000;
   transform: translateY(-5px);
-  border-bottom: 1px solid var(--primary-accent);
 }
 
 .section-title {
@@ -607,11 +610,10 @@ footer {
     font-size: 1.8rem;
   }
 
-  /* --- スマホ時の改行禁止設定 --- */
   .spec-item {
-    white-space: nowrap; /* 改行を禁止 */
-    font-size: 0.65rem; /* わずかに縮小して1行に収める */
-    letter-spacing: 0.02em; /* 字間を微調整 */
+    white-space: nowrap;
+    font-size: 0.65rem;
+    letter-spacing: 0.02em;
   }
   .specs-grid {
     gap: 10px 15px;
@@ -646,9 +648,9 @@ footer {
   #back-to-top {
     right: 20px;
     bottom: 20px;
-    font-size: 0.8rem;
-    padding: 5px 10px;
-    background: rgba(0, 0, 0, 0.5);
+    font-size: 0.7rem;
+    padding: 10px 15px;
+    background: rgba(0, 0, 0, 0.9); /* スマホでも透けないよう背景を濃く */
     backdrop-filter: blur(5px);
     border: 1px solid var(--border-color);
   }
@@ -671,6 +673,6 @@ footer {
     font-size: 2.2rem;
   }
   .spec-item {
-    font-size: 0.6rem; /* さらに小さい画面向けに調整 */
+    font-size: 0.6rem;
   }
 }
