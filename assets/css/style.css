@@ -15,6 +15,10 @@
 }
 
 /* --- Base Setup --- */
+* {
+  box-sizing: border-box; /* 全要素のはみ出し防止 */
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -24,7 +28,7 @@ body {
   line-height: 1.8;
   letter-spacing: 0.05em;
   -webkit-font-smoothing: antialiased;
-  overflow-x: hidden;
+  overflow-x: hidden; /* 横揺れを完全にカット */
   width: 100%;
 }
 
@@ -113,7 +117,6 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 0 5%;
-  box-sizing: border-box;
   border-bottom: 1px solid var(--border-color);
 }
 
@@ -193,6 +196,7 @@ nav {
 .visual-card {
   aspect-ratio: 16 / 9;
 }
+
 .project-panel {
   width: 100%;
   min-height: 450px;
@@ -211,7 +215,7 @@ nav {
 
 .visual-card:hover .panel-img,
 .project-panel:hover .panel-img {
-  transform: scale(1.08);
+  transform: scale(1.05);
   filter: brightness(1);
 }
 
@@ -230,20 +234,27 @@ nav {
   padding: 80px 60px;
 }
 
+.game-info {
+  width: 100%;
+}
+
 .game-info h3 {
   font-size: clamp(1.8rem, 5vw, 2.8rem);
   margin: 10px 0;
 }
+
 .status-label {
   font-size: 0.7rem;
   color: var(--status-on);
   letter-spacing: 0.3em;
   font-weight: 800;
 }
+
 .project-desc {
   color: var(--secondary-accent);
   font-size: 1rem;
   margin-bottom: 30px;
+  max-width: 600px;
 }
 
 .btn {
@@ -255,6 +266,7 @@ nav {
   font-size: 0.75rem;
   font-weight: 800;
   transition: 0.3s;
+  text-align: center;
 }
 
 .btn:hover,
@@ -276,7 +288,7 @@ nav {
 }
 
 .details-content.active {
-  max-height: 1200px;
+  max-height: 2000px; /* 十分な高さを確保 */
   opacity: 1;
   margin-top: 30px;
 }
@@ -289,6 +301,7 @@ nav {
 .development-status {
   margin-bottom: 30px;
 }
+
 .status-header {
   display: flex;
   justify-content: space-between;
@@ -352,17 +365,13 @@ nav {
   font-size: 0.7rem;
   letter-spacing: 0.1em;
   color: var(--primary-accent);
+  word-wrap: break-word; /* 長い単語の改行 */
 }
+
 .spec-item span {
   color: var(--secondary-accent);
   margin-right: 8px;
   font-weight: 200;
-}
-.details-text {
-  font-size: 0.85rem;
-  line-height: 2;
-  color: var(--secondary-accent);
-  max-width: 550px;
 }
 
 /* --- Philosophy --- */
@@ -372,6 +381,7 @@ nav {
   margin: 120px auto;
   padding: 0 5%;
 }
+
 .philosophy-section .quote {
   font-size: 1.2rem;
   font-style: italic;
@@ -387,6 +397,7 @@ footer {
   border-top: 1px solid var(--border-color);
   margin-top: 150px;
 }
+
 .footer-container {
   display: flex;
   flex-direction: column;
@@ -399,14 +410,21 @@ footer {
   justify-content: center;
   gap: 30px;
 }
+
 .footer-sns a {
   display: block;
-  width: 20px;
-  height: 20px;
+  width: 24px;
+  height: 24px;
   color: var(--primary-accent) !important;
   opacity: 0.5;
   transition: 0.3s;
 }
+
+.footer-sns svg {
+  width: 100%;
+  height: 100%;
+}
+
 .footer-sns a:hover {
   opacity: 1;
   transform: translateY(-5px);
@@ -456,23 +474,27 @@ footer {
   display: flex;
   justify-content: center;
   gap: 25px;
+  flex-wrap: wrap;
 }
+
 .footer-links a {
   font-size: 0.65rem;
   color: var(--secondary-accent) !important;
   text-decoration: none !important;
   transition: color 0.3s;
 }
+
 .footer-links a:hover {
   color: var(--primary-accent) !important;
 }
+
 .copyright {
   font-size: 0.65rem;
   color: var(--secondary-accent);
   opacity: 0.5;
 }
 
-/* --- UI Elements: Back to Top (スマホ白残り対策版) --- */
+/* --- UI Elements: Back to Top --- */
 #back-to-top {
   position: fixed;
   right: 40px;
@@ -489,10 +511,9 @@ footer {
   opacity: 0.7;
   text-decoration: none !important;
   transition: all 0.3s ease;
-  -webkit-tap-highlight-color: transparent; /* タップ時の青枠防止 */
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* マウスデバイスのみホバー効果を適用（スマホでの色残りを防止） */
 @media (hover: hover) {
   #back-to-top:hover {
     opacity: 1;
@@ -502,7 +523,6 @@ footer {
   }
 }
 
-/* スマホ等でタップした瞬間だけのフィードバック */
 #back-to-top:active {
   background: rgba(255, 255, 255, 0.2);
 }
@@ -514,52 +534,100 @@ footer {
   margin: 120px 0 60px;
   text-transform: uppercase;
 }
+
 .container {
   max-width: 1300px;
   margin: 0 auto;
   padding: 0 5%;
+  width: 100%;
 }
+
 .reveal {
   opacity: 0;
   transform: translateY(40px);
   transition: 1.2s var(--ease-out-expo);
 }
+
 .reveal.active {
   opacity: 1;
   transform: translateY(0);
 }
 
-/* --- Responsive --- */
+/* --- Responsive (はみ出し徹底修正版) --- */
 @media (max-width: 768px) {
   nav {
     padding: 0 15px;
     height: 70px;
   }
+
   .nav-logo {
     font-size: 0.8rem;
   }
+
   .nav-links a {
     margin-left: 12px;
     font-size: 0.6rem;
   }
+
   .glitch {
     font-size: 3rem;
   }
+
   .tagline {
     font-size: 0.9rem;
+    padding: 0 10px;
   }
 
   .visual-panel-grid {
     grid-template-columns: 1fr;
+    gap: 20px;
   }
+
   .project-panel {
     flex-direction: column;
     min-height: auto;
   }
+
   .project-overlay {
-    padding: 30px 20px;
+    padding: 40px 20px;
     background: rgba(0, 0, 0, 0.95);
     text-align: center;
+    width: 100%;
+  }
+
+  .btn {
+    width: 100%; /* ボタンを横幅いっぱいに */
+    max-width: 280px;
+    padding: 14px 0;
+  }
+
+  .specs-grid {
+    grid-template-columns: 1fr; /* 1カラムに変更してはみ出し防止 */
+    gap: 10px;
+    text-align: left;
+    margin-top: 20px;
+  }
+
+  .spec-item {
+    font-size: 0.75rem;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .spec-item span {
+    margin-right: 0;
+  }
+
+  .status-header {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+
+  .container {
+    padding: 0 20px;
   }
 
   #back-to-top {
@@ -567,6 +635,21 @@ footer {
     bottom: 20px;
     padding: 10px 15px;
     font-size: 0.7rem;
-    background: rgba(0, 0, 0, 0.9);
+    background: rgba(0, 0, 0, 0.95);
+  }
+
+  .footer-links {
+    gap: 15px;
+  }
+}
+
+/* 極小デバイス用 */
+@media (max-width: 380px) {
+  .glitch {
+    font-size: 2.2rem;
+  }
+  .nav-links a {
+    margin-left: 8px;
+    font-size: 0.55rem;
   }
 }
