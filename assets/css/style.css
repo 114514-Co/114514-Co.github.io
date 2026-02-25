@@ -672,59 +672,51 @@ footer {
 }
 
 /* ============================================================
-   MOBILE-ONLY HEADER FIX (PC版には一切干渉しません)
+   MOBILE HEADER OPTIMIZED (1行維持しつつ視認性を向上)
    ============================================================ */
 
 @media (max-width: 768px) {
-  /* スマホ時のみ、JSで読み込まれるヘッダーを1行に強制 */
   #common-header {
-    display: flex !important;
-    flex-direction: row !important;
-    flex-wrap: nowrap !important; /* 絶対に折り返さない */
-    justify-content: space-between !important;
-    align-items: center !important;
-    padding: 0 12px !important;
-    height: 70px !important; /* スマホ用に高さを少し抑える */
+    padding: 0 15px !important; /* 余白を少し戻して高級感を出す */
+    height: 75px !important;
   }
 
-  /* ロゴのサイズ調整（PC版の 1rem から縮小） */
+  /* ロゴ：サイズを少し大きくし、レタースペースを調整 */
   #common-header .nav-logo {
-    font-size: 0.75rem !important;
-    letter-spacing: 0.1em !important;
-    white-space: nowrap !important;
-    flex-shrink: 1 !important; /* 画面が狭い時はロゴが縮むことを許可 */
-    min-width: 0 !important;
-    margin-right: 8px !important;
+    font-size: 0.85rem !important; /* 0.75からアップ */
+    letter-spacing: 0.15em !important; /* 間隔を少し詰め、横幅を確保 */
+    flex-shrink: 0 !important; /* ロゴは可能な限り縮ませない */
+    margin-right: 15px !important;
   }
 
-  /* 右側要素（検索・メニュー）のコンテナ */
+  /* 右側コンテナ：要素間の隙間を最適化 */
   #common-header .nav-right {
-    display: flex !important;
-    gap: 8px !important;
-    flex-shrink: 0 !important; /* 右側アイコン類はこれ以上小さくしない */
+    gap: 12px !important;
+    flex-grow: 1; /* 検索窓のためにスペースを広げる */
+    justify-content: flex-end;
   }
 
-  /* 検索窓をスマホ幅に合わせて大幅に制限 */
+  /* 検索窓：小さすぎたので、実用的な幅に固定 */
   #common-header .search-input {
-    width: 60px !important;
-    font-size: 0.65rem !important;
-    padding: 4px 6px !important;
+    width: 90px !important; /* 60pxからアップ */
+    font-size: 0.75rem !important;
+    padding: 5px 8px !important;
+    background: rgba(
+      255,
+      255,
+      255,
+      0.08
+    ) !important; /* 少し明るくして見やすく */
   }
 
-  /* ハンバーガーボタンのサイズ調整 */
-  #common-header .menu-toggle {
-    display: flex !important;
-    width: 22px !important;
-    height: 16px !important;
-  }
-}
-
-/* 超小型デバイス（幅360px以下）向けの最終調整 */
-@media (max-width: 360px) {
-  #common-header .search-input {
-    display: none !important; /* 物理的に入り切らないため入力を消し、アイコンのみにする */
-  }
-  #common-header .nav-logo {
-    font-size: 0.65rem !important;
+  /* さらに画面が狭いスマホ(iPhone SE等)でのバランス */
+  @media (max-width: 390px) {
+    #common-header .nav-logo {
+      font-size: 0.8rem !important;
+      letter-spacing: 0.1em !important;
+    }
+    #common-header .search-input {
+      width: 70px !important; /* 狭い画面では少しだけ譲る */
+    }
   }
 }
