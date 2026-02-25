@@ -720,3 +720,37 @@ footer {
     }
   }
 }
+
+/* ============================================================
+   MOBILE SEARCH TEXT VISIBILITY (PC版には一切干渉しません)
+   ============================================================ */
+
+@media (max-width: 768px) {
+  /* スマホ時のみ、JS注入ヘッダー内の検索窓を最適化 */
+  #common-header .search-input {
+    width: 130px !important; /* 「Search Archive」が収まる幅まで拡大 */
+    font-size: 0.8rem !important; /* 視認性を上げつつ見切れないサイズ */
+    padding: 6px 8px !important; /* 左右余白を詰め、表示領域を最大化 */
+    letter-spacing: 0 !important; /* 文字間を標準に戻して幅の浪費を防ぐ */
+    text-overflow: clip !important; /* 端まで文字を表示 */
+    flex-shrink: 0 !important; /* 画面が狭くてもこれ以上潰させない */
+  }
+
+  /* プレースホルダー（Search Archive）の表示調整 */
+  #common-header .search-input::placeholder {
+    font-size: 0.75rem !important;
+    letter-spacing: 0.02em !important;
+    color: rgba(255, 255, 255, 0.4) !important;
+  }
+
+  /* 画面幅375px以下の非常に狭いデバイス用 */
+  @media (max-width: 375px) {
+    #common-header .search-input {
+      width: 110px !important; /* 限界まで広げつつ衝突を回避 */
+      font-size: 0.72rem !important;
+    }
+    #common-header .nav-logo {
+      margin-right: 8px !important; /* 隙間を詰めて検索窓のスペースを確保 */
+    }
+  }
+}
